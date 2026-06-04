@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAERklEQVR4AdRVW2gVVxRdZ5Lce1ujtKA2pAj9qOkj0IdVsBEqLbS2lkKL3OS2H6UPCm1KH+hf+9H2o59KW6j9aqs/muQiKuL7Q/wwCr4FUaN/gRAf4Cvi3ORmxr3mcebcedx744fiMHvOPnuvtfeefc6csfCQr0ergKGi/fZA0V47ULx7SOSqiBsIdbHZa4mZSVOb6oAk/WawaJ934O4D3NWSoEdkrkh4Uxebu5oYYskJnfXGugVsXnVnsbzhIUm63oX7XL1Aps/HuuvJZQzTF9czCxgqVvqUZR0VgryZPO/v7mEMxsqipxZAggNnIIsU2q1WYHanhVy7Ck2pI2MxZpozUQBbRkIa2LTNeVqhuKmAlX/k8NF/ebz/Vx4vfdKKwpPpxTAmYyN2JQqQlv0Zw6ROVYzZ3qHwwoet+ODvPJ5d0ZLBsRKxa8IEO7epNb856mLLpzYO/j6JE/9PYfy04yXlsrz2ZRv6hgrePPboCXJoc00B0rwftCdQnnmjxWtx9ypZ8MAWDlUbXuKLu6e9QliMfcMN3Xj1syQnnkMXMCSHjP/5aL63nku+bvM22bxuDY0AMY1dOLGhqq0LV7Si8ISkRHQxB3OFFh1VGvhuaAzHrvdawJZyfn57FJjzLKncjDqgZCt0rZRHDGzmsiKfuzTSfW3BUp88fsrxWu1bZ/Zc8Lofo5YV5TIKQJcJ4rfNnU3b2MlpDqkyX5amRl40QwLtTylvCWNkncsyHDzP9TQ/J1q722NRWzVAFO70N3/JwZTuYnLjmbGExlvnMgug44GLWcA1M3vlVvTWszujbpiYwV4bB36bTJWLu6NNa8YK+DqXWcBI4PSGyQkXE5f9IjoXpW0kD4YrZ51U4T+CiIlxF4xF3RCdyyhAHTEAnjp62N98HS9boHjGJh7EUggdPeLHoB5JlEsXIMqeCOBrI7um4QSdXPxVGx6fm74UMC5iiKWJ3BE5JambYuYS3Xf1lgv7FdQFf+Y/eaye3DjlTWbNV3jr11zdTvCtiSGWJHLt6/4yck5hDuaiTtEFcCLQxN/q0t5pnNvqt4GBl/+cw/KfclgopyQTUqh7dvERw1jkkEvdlHiOmgJK5cI/Ah4WqbnPbK7i+L9Tejk6XrGw6PM2hEmpsxCS2HZiyeE8JsNBDm2uKYBW13ESf0Ta+TY7vq3g3LYquLNpM4VfDH07+isg1vSFelrsRAEfb5l1zIJVCknmyPU8s6mKnd9XsPWLCnb9OOkJ9Z3fVUAf943JCXXGZOxwHo6JAujoLecHSaCeJfy2b485oFDPwtHOWIxJPS6pBRBEgrRsieiJPSG2Zu9hxmCsLEJmASSwZaXyY8sA1c/PB01ePlb1k8sY9Wh1CwiJJfk6+sqF5y2odwC1DgC7os9zmVMXm1pHDLHkiL3hbTVEGAAeIBJ4TUm6IjJPRAVCfVmpXFhDjEFpqM6ogIbRUgCNTPcAAAD//44HpfQAAAAGSURBVAMAQhisUPyTqwEAAAAASUVORK5CYII=">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inrev Control & Management | Keep Your Business Evolving</title>
+  <meta name="description" content="Somos especialistas em gerar impacto! Consultoria em Transformação Digital, Gestão Estratégica, Gestão Comercial e Terceirização Comercial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #111111;
+      --bg-light: #FAFAF8;
+      --bg-white: #FFFFFF;
+      --accent-neon: #A855F7;
+      --accent-magenta: #DD2872;
+      --accent-cyan: #0BC5FE;
+      --accent-blue: #0B66FF;
+      --text-white: #FFFFFF;
+      --text-dark: #0F1926;
+      --text-muted: #6B7280;
+      --text-muted-light: #9CA3AF;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --max-width: 1200px;
+      --header-h: 72px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background: var(--bg-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    /* ===== Scroll Reveal ===== */
+    .sr {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sr.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Hero Entrance ===== */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(44px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-anim {
+      opacity: 0;
+      animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* ===== Blob Animations ===== */
+    @keyframes blobA {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(60px, -90px) scale(1.12); }
+      50% { transform: translate(-40px, 60px) scale(0.92); }
+      75% { transform: translate(90px, 20px) scale(1.06); }
+    }
+    @keyframes blobB {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-70px, 50px) scale(1.14); }
+      66% { transform: translate(50px, -70px) scale(0.88); }
+    }
+    @keyframes blobC {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(80px, 40px) scale(1.18); }
+      50% { transform: translate(-60px, -50px) scale(0.82); }
+      75% { transform: translate(-30px, 70px) scale(1.08); }
+    }
+
+    /* ===== Header ===== */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--header-h);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    .site-header.scrolled {
+      background: rgba(10,10,10,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+    .header-nav {
+      display: flex;
+    }
+    .header-nav a {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+      transition: color 0.25s;
+      font-family: var(--font-heading);
+    }
+    .header-nav a:hover { color: var(--accent-neon); }
+    .header-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-neon);
+      color: #fff; font-size: 13px; font-weight: 600;
+      padding: 10px 22px; border-radius: 8px;
+      letter-spacing: 0.3px; transition: background 0.25s, transform 0.2s;
+      font-family: var(--font-heading);
+    }
+    .header-cta:hover { background: #7c3aed; transform: translateY(-1px); }
+
+    /* ===== Mobile Menu Toggle ===== */
+    .menu-toggle {
+      display: none; width: 28px; height: 20px;
+      flex-direction: column; justify-content: space-between;
+      z-index: 110;
+    }
+    .menu-toggle span {
+      display: block; width: 100%; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .menu-toggle.open span:first-child { transform: rotate(45deg) translate(6px, 6px); background: var(--accent-neon); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:last-child { transform: rotate(-45deg) translate(6px, -6px); background: var(--accent-neon); }
+
+    .mobile-overlay {
+      position: fixed; inset: 0; z-index: 105;
+      background: rgba(10,10,10,0.99);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s;
+    }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-overlay a {
+      color: #fff; font-family: var(--font-heading);
+      font-size: 28px; font-weight: 700; letter-spacing: 1px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.4s, transform 0.4s, color 0.2s;
+    }
+    .mobile-overlay.open a {
+      opacity: 1; transform: translateY(0);
+    }
+    .mobile-overlay a:hover { color: var(--accent-neon); }
+
+    /* ===== Tab Buttons ===== */
+    .tab-btn {
+      position: relative; padding: 16px 0;
+      color: rgba(255,255,255,0.4); font-family: var(--font-heading);
+      font-size: 15px; font-weight: 700; letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .tab-btn.active { color: #fff; }
+    .tab-btn::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; border-radius: 3px; transform: scaleX(0);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-btn.active::after { transform: scaleX(1); }
+
+    /* ===== Service Cards ===== */
+    .svc-card {
+      padding: 36px 32px; border: 1px solid #E8E8E8; border-radius: 14px;
+      background: #fff; transition: border-color 0.3s, transform 0.35s, box-shadow 0.35s;
+    }
+    .svc-card:hover {
+      border-color: var(--accent-neon); transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.07);
+    }
+
+    /* ===== Form ===== */
+    .form-input {
+      width: 100%; padding: 16px 20px;
+      background: #F3F4F6; border: 1.5px solid transparent; border-radius: 10px;
+      font-size: 15px; font-family: var(--font-body); color: var(--text-dark);
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--accent-neon); background: #fff;
+      box-shadow: 0 0 0 3px rgba(214,251,0,0.12);
+    }
+    .form-input::placeholder { color: #9CA3AF; }
+    .submit-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--bg-primary); color: #fff;
+      font-family: var(--font-heading); font-size: 15px; font-weight: 700;
+      padding: 16px 40px; border-radius: 10px; letter-spacing: 0.5px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .submit-btn:hover { background: #222; transform: translateY(-2px); }
+
+    /* ===== Footer Links ===== */
+    .ft-link { color: var(--text-muted-light); transition: color 0.2s; }
+    .ft-link:hover { color: var(--accent-neon); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px) {
+      .header-nav { display: none; }
+      .menu-toggle { display: flex; }
+      .hero-globe { display: none !important; }
+      .hero-globe-wrapper { display: none !important; }
+    }
+    @media (max-width: 768px) {
+      :root { --header-h: 60px; }
+      #hero { min-height: auto !important; padding-top: 90px !important; padding-bottom: 40px !important; padding-left: 20px !important; padding-right: 20px !important; }
+      .hero-globe-wrapper { display: none !important; }
+      .header-cta { font-size: 11px !important; padding: 8px 16px !important; }
+      #hero h1 { font-size: 32px !important; margin-bottom: 20px !important; }
+      #hero p { font-size: 14px !important; margin-bottom: 28px !important; }
+      #hero .hero-anim a { font-size: 13px !important; padding: 12px 24px !important; }
+      #hero canvas { display: none !important; }
+      #hero > div:first-child > div { filter: blur(80px) !important; width: 300px !important; height: 300px !important; }
+      .hero-mobile-effect {
+        display: block !important;
+        position: absolute;
+        bottom: -40px; left: 50%; transform: translateX(-50%);
+        width: 360px; height: 360px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 50%, rgba(168,85,247,0.08) 0%, rgba(168,85,247,0.03) 40%, transparent 70%);
+        pointer-events: none;
+        animation: mobileGlow 6s ease-in-out infinite;
+      }
+      .hero-mobile-ring1, .hero-mobile-ring2 {
+        display: block !important;
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(168,85,247,0.08);
+        pointer-events: none;
+      }
+      .hero-mobile-ring1 {
+        width: 240px; height: 240px;
+        bottom: 20px; left: 50%; transform: translateX(-50%);
+        animation: mobileRing 8s ease-in-out infinite;
+      }
+      .hero-mobile-ring2 {
+        width: 340px; height: 340px;
+        bottom: -30px; left: 50%; transform: translateX(-50%);
+        border-color: rgba(168,85,247,0.05);
+        animation: mobileRing 10s ease-in-out infinite reverse;
+      }
+    }
+    @keyframes mobileGlow {
+      0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+    }
+    @keyframes mobileRing {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+    }
+    @media (max-width: 900px) {
+      .hero-content-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .hero-globe-wrapper {
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+  <template id="__bundler_thumbnail" data-bg-color="#0A0A0A">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#0A0A0A"/>
+      <circle cx="750" cy="400" r="200" fill="none" stroke="#A855F7" stroke-width="2" opacity="0.3"/>
+      <circle cx="750" cy="400" r="140" fill="none" stroke="#A855F7" stroke-width="1" opacity="0.2"/>
+      <text x="200" y="380" font-family="sans-serif" font-weight="800" font-size="64" fill="#FFFFFF">INREV</text>
+      <text x="200" y="440" font-family="sans-serif" font-weight="400" font-size="24" fill="#A855F7" opacity="0.7">Control &amp; Management</text>
+    </svg>
+  </template>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="globe.jsx"></script>
+  <script type="text/babel" src="space-field.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+  <script type="text/babel" src="sections.jsx"></script>
+  <script type="text/babel" src="contact-footer.jsx"></script>
+
+  <script type="text/babel">
+    const {
+      Header, Hero, SolutionsIntro, CoreExpertise,
+      AboutSection, ContactSection, SiteFooter
+    } = window;
+
+    function App() {
+      return (
+        <React.Fragment>
+          <Header />
+          <main>
+            <Hero />
+            <SolutionsIntro />
+            <CoreExpertise />
+            <AboutSection />
+            <ContactSection />
+          </main>
+          <SiteFooter />
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

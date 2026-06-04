@@ -4,8 +4,12 @@ function TechGlobe({ size = 480 }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    // Skip entirely on mobile/tablet
+    if (window.innerWidth < 1024) return;
+
     const canvas = canvasRef.current;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = size * dpr;
     canvas.height = size * dpr;
     const ctx = canvas.getContext('2d');
@@ -313,7 +317,7 @@ function TechGlobe({ size = 480 }) {
       });
 
       // === Hover particles ===
-      if (overGlobe && particles.length < 32 && Math.random() < 0.7) {
+      if (overGlobe && particles.length < 20 && Math.random() < 0.5) {
         const angle = Math.random() * Math.PI * 2;
         const speed = 0.4 + Math.random() * 0.9;
         particles.push({
@@ -336,15 +340,7 @@ function TechGlobe({ size = 480 }) {
         ctx.arc(pt.x, pt.y, pt.size * pt.life, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${pBright},${a})`;
         ctx.fill();
-        if (pt.life > 0.5) {
-          const pg = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, pt.size * pt.life * 3);
-          pg.addColorStop(0, `rgba(${p},${a * 0.2})`);
-          pg.addColorStop(1, `rgba(${p},0)`);
-          ctx.beginPath();
-          ctx.arc(pt.x, pt.y, pt.size * pt.life * 3, 0, Math.PI * 2);
-          ctx.fillStyle = pg;
-          ctx.fill();
-        }
+  
       }
 
       // === Hover cursor glow ===
