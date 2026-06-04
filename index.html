@@ -277,6 +277,30 @@
 <body>
   <div id="root"></div>
 
+  <!-- Instant splash — shown before React/Babel loads, hidden on mount -->
+  <div id="splash" style="
+    position:fixed;inset:0;z-index:9999;
+    background:#0A0A0A;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+    transition:opacity 0.4s ease;
+  ">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdEAAAB4CAYAAACtp8gJAAAQAElEQVR4AexdCbxV0/5frltRwkuh8K9HMmWKhAZJhURFSsboJRRRXiRjMrwMZYomIUQZLhIZUkLm8JI5PDKUDCFp8v9+t7tP65yz99l7rb32Ofucu+5n/e5ae639G9Zv77N/a/ztMmH/rAasBqwGrAasBqwGtDRgjaiW2iyS1YDVgNWA1YDVgBDWiBbiKbA8rQasBqwGrAZKQgPWiJbEbbSNsBqwGrAaKAkN" alt="Inrev" style="height:40px;object-fit:contain;opacity:0.9;">
+    <div style="width:32px;height:2px;background:#A855F7;border-radius:2px;animation:splashBar 1.2s ease-in-out infinite;"></div>
+  </div>
+  <style>
+    @keyframes splashBar {
+      0%,100%{width:24px;opacity:0.4}
+      50%{width:56px;opacity:1}
+    }
+  </style>
+  <script>
+    // Hide splash when React mounts
+    window.__hideSplash = function() {
+      var s = document.getElementById('splash');
+      if (s) { s.style.opacity = '0'; setTimeout(function(){ s.style.display='none'; }, 400); }
+    };
+  </script>
+
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
@@ -309,7 +333,11 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (window.__hideSplash) window.__hideSplash();
+    }));
   </script>
 </body>
 </html>
