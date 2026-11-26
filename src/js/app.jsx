@@ -4,26 +4,30 @@ const { useState, useEffect, useRef, useCallback } = React;
 
 /* ===== ScrollReveal Component ===== */
 function SR({ children, delay = 0, className = '', style = {} }) {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 900;
+  // O conteúdo sai visível no HTML pré-renderizado. O reveal só arma no
+  // desktop, sem prefers-reduced-motion, e só para blocos abaixo da dobra:
+  // nada que já esteja na tela fica invisível.
   const ref = useRef(null);
-  const [vis, setVis] = useState(isMobile);
+  const [mode, setMode] = useState('static');
   useEffect(() => {
-    if (isMobile) return;
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.innerWidth < 900 || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    setMode('armed');
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); obs.unobserve(el); } },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      ([e]) => { if (e.isIntersecting) { setMode('shown'); obs.disconnect(); } },
+      { threshold: 0, rootMargin: '0px 0px 120px 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
-  if (isMobile) {
-    return <div className={className} style={style}>{children}</div>;
+  if (mode === 'static') {
+    return <div ref={ref} className={className || undefined} style={style}>{children}</div>;
   }
   return (
-    <div ref={ref} className={`sr ${vis ? 'visible' : ''} ${className}`}
-      style={{ transitionDelay: `${delay}ms`, ...style }}>
+    <div ref={ref} className={`sr ${mode === 'shown' ? 'visible' : ''} ${className}`}
+      style={{ transitionDelay: `${Math.min(delay, 150)}ms`, ...style }}>
       {children}
     </div>
   );
@@ -209,19 +213,19 @@ function Hero() {
 
       {/* Animated Blobs */}
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-        <div style={{
+        <div className="hero-blob" style={{
           position: 'absolute', width: 700, height: 700, borderRadius: '50%',
           background: 'var(--accent-neon)', opacity: 0.08, filter: 'blur(140px)',
           top: '-20%', right: '-10%', animation: 'blobA 28s ease-in-out infinite',
           willChange: 'transform'
         }}></div>
-        <div style={{
+        <div className="hero-blob" style={{
           position: 'absolute', width: 550, height: 550, borderRadius: '50%',
           background: 'var(--accent-magenta)', opacity: 0.07, filter: 'blur(130px)',
           bottom: '-15%', left: '-8%', animation: 'blobB 22s ease-in-out infinite',
           willChange: 'transform'
         }}></div>
-        <div style={{
+        <div className="hero-blob" style={{
           position: 'absolute', width: 450, height: 450, borderRadius: '50%',
           background: 'var(--accent-cyan)', opacity: 0.06, filter: 'blur(120px)',
           top: '40%', left: '40%', animation: 'blobC 25s ease-in-out infinite',
@@ -250,7 +254,7 @@ function Hero() {
         minHeight: 'calc(100vh - 200px)'
       }}>
         <div style={{ maxWidth: 620 }}>
-          <div className="hero-anim" style={{ animationDelay: '0.05s' }}>
+          <div className="hero-anim" style={{ animationDelay: '0s' }}>
             <span style={{
               fontFamily: 'var(--font-heading)', fontSize: 12, fontWeight: 700,
               letterSpacing: 4, color: 'var(--accent-neon)', textTransform: 'uppercase',
@@ -262,7 +266,7 @@ function Hero() {
           </div>
 
           <h1 className="hero-anim" style={{
-            animationDelay: '0.1s',
+            animationDelay: '0.04s',
             fontFamily: 'var(--font-heading)', fontWeight: 800,
             fontSize: 'clamp(36px, 4.5vw, 68px)', lineHeight: 1.08,
             color: 'var(--text-white)', letterSpacing: '-0.02em',
@@ -276,7 +280,7 @@ function Hero() {
           </h1>
 
           <p className="hero-anim" style={{
-            animationDelay: '0.4s',
+            animationDelay: '0.1s',
             fontSize: 'clamp(15px, 1.3vw, 18px)', lineHeight: 1.7,
             color: 'rgba(255,255,255,0.55)', maxWidth: 520, marginBottom: 44
           }}>
@@ -286,7 +290,7 @@ function Hero() {
           </p>
 
           <div className="hero-anim" style={{
-            animationDelay: '0.6s',
+            animationDelay: '0.16s',
             display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center'
           }}>
             <CTAButton text="Fale com um Especialista" variant="light"
@@ -298,7 +302,7 @@ function Hero() {
 
         {/* Globe — centered in right column */}
         <div className="hero-anim hero-globe-wrapper" style={{
-          animationDelay: '0.3s',
+          animationDelay: '0.08s',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           position: 'relative', overflow: 'visible'
         }}>
