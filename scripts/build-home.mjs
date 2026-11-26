@@ -9,6 +9,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import esbuild from 'esbuild';
+import vm from 'node:vm';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'src');
@@ -105,7 +109,29 @@ async function compileApp() {
   return Buffer.from(js);
 }
 
-function buildHtml({ appName, reactName, reactDomName, fontUrls, preloads }) {
+/**
+ * Pré-renderiza a home inteira com react-dom/server, rodando o mesmo bundle
+ * num contexto isolado. O HTML já sai com header, hero e todas as seções;
+ * no navegador o React só hidrata (hydrateRoot).
+ */
+function prerender(js) {
+  const React = require('react');
+  const { renderToString } = require('react-dom/server');
+  if (React.version !== '18.3.1') fail('react do SSR não é 18.3.1');
+  const ctx = { React, console, __INREV_SSR__: true };
+  ctx.window = ctx;
+  vm.createContext(ctx);
+  vm.runInContext(js, ctx, { filename: 'app.js' });
+  if (typeof ctx.InrevApp !== 'function') fail('bundle não expôs InrevApp');
+  const markup = renderToString(React.createElement(ctx.InrevApp));
+  for (const needle of ['Evolving.', 'Fale Conosco', 'Fale com um Especialista', 'id="solutions"', 'id="expertise"', 'id="about"', 'id="contact"', '<footer', '/blog/']) {
+    if (!markup.includes(needle)) fail('pré-render sem ' + needle);
+  }
+  if (/class="sr[ "]/.test(markup)) fail('pré-render saiu com bloco invisível (.sr)');
+  return markup;
+}
+
+function buildHtml({ appName, reactName, reactDomName, fontUrls, preloads, markup }) {
   let faces = readSrc('font-faces.css').toString('utf8');
   for (const [token, url] of Object.entries(fontUrls)) {
     if (!faces.includes(token)) fail('token de fonte ausente: ' + token);
@@ -115,7 +141,12 @@ function buildHtml({ appName, reactName, reactDomName, fontUrls, preloads }) {
   if (!faces.includes('font-display: swap')) fail('font-display: swap ausente');
 
   const homeCss = readSrc('home.css').toString('utf8');
-  if (!homeCss.includes('heroFadeUp 0.5s')) fail('o fade do hero não está em 0,5s');
+  if (!homeCss.includes('heroFadeUp 0.45s')) fail('o fade do hero não está em 0,45s');
+  if (!homeCss.includes('prefers-reduced-motion')) fail('falta prefers-reduced-motion');
+  if (!homeCss.includes('max-width: 899px') || !homeCss.includes('opacity: 1 !important')) {
+    fail('o hero no celular ainda pode começar com opacity 0');
+  }
+  if (homeCss.includes('from { opacity: 0')) fail('o keyframe do hero ainda esconde o texto');
   if (homeCss.includes('heroFadeUp 1s')) fail('o fade de 1s ainda está no CSS');
 
   const meta = readSrc('meta.html').toString('utf8').trimEnd();
@@ -155,7 +186,7 @@ ${homeCss}
 ${scripts}
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">${markup}</div>
 </body>
 </html>
 `;
@@ -165,7 +196,7 @@ ${scripts}
     if (html.includes(needle)) fail('index.html ainda contém ' + needle);
   }
   if (!html.includes('id="root"')) fail('index.html sem #root');
-  if (Buffer.byteLength(html) > 80 * 1024) fail('index.html passou de 80 KB');
+  if (Buffer.byteLength(html) > 120 * 1024) fail('index.html passou de 120 KB');
   return html;
 }
 
@@ -191,7 +222,8 @@ async function main() {
   const appBuf = await compileApp();
   const appName = writeHashed(ASSETS, 'app.js', appBuf);
 
-  const html = buildHtml({ appName, reactName, reactDomName, fontUrls, preloads });
+  const markup = prerender(appBuf.toString('utf8'));
+  const html = buildHtml({ appName, reactName, reactDomName, fontUrls, preloads, markup });
   fs.writeFileSync(path.join(ROOT, 'index.html'), html);
 
   const htmlBytes = Buffer.byteLength(html);

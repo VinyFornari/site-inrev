@@ -374,7 +374,7 @@ function SiteFooter() {
           alignItems: 'center', gap: 16, paddingTop: 28
         }}>
           <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)' }}>
-            ©{currentYear} Inrev Gestão e Desenvolvimento LTDA. CNPJ 42.388.088/0001-00.
+            <span suppressHydrationWarning>©{currentYear}</span> Inrev Gestão e Desenvolvimento LTDA. CNPJ 42.388.088/0001-00.
             Todos os direitos reservados.
           </div>
           <div style={{ display: 'flex', gap: 24 }}>
