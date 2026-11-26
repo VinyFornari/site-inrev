@@ -1,3 +1,5 @@
+/* === space-field === */
+(function() {
 const { useRef, useEffect } = React;
 
 function SpaceField() {
@@ -167,3 +169,5 @@ function SpaceField() {
 }
 
 Object.assign(window, { SpaceField });
+
+})();

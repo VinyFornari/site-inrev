@@ -1,3 +1,5 @@
+/* === sections === */
+(function() {
 const { useState } = React;
 const { SR, SectionLabel, CTAButton } = window;
 
@@ -400,3 +402,5 @@ function AboutSection() {
 }
 
 Object.assign(window, { SolutionsIntro, CoreExpertise, AboutSection });
+
+})();

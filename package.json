@@ -6,10 +6,13 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "node scripts/build-blog.mjs"
+    "build": "node scripts/build-home.mjs && node scripts/build-blog.mjs"
   },
   "dependencies": {
+    "esbuild": "^0.25.12",
     "gray-matter": "^4.0.3",
-    "marked": "^15.0.12"
+    "marked": "^15.0.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

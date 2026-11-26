@@ -1,3 +1,5 @@
+/* === globe === */
+(function() {
 const { useRef, useEffect } = React;
 
 function TechGlobe({ size = 480 }) {
@@ -375,3 +377,5 @@ function TechGlobe({ size = 480 }) {
 }
 
 Object.assign(window, { TechGlobe });
+
+})();
