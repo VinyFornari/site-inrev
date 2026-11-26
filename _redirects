@@ -1,0 +1,3 @@
+# A Cloudflare Pages não aceita status 404 neste arquivo (só 301, 302, 303, 307, 308 e proxy 200).
+# No build da Pages (CF_PAGES=1), scripts/build-blog.mjs apaga os arquivos de repositório
+# da saída. Um caminho sem arquivo cai em /404.html com HTTP 404.
