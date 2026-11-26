@@ -1,7 +1,7 @@
 ---
 title: "AI Omnibus: União Europeia adia as regras de IA de alto risco e cria novos prazos"
 slug: uniao-europeia-adota-ai-omnibus-e-adia-regras-de-alto-risco
-date: "2026-11-19"
+date: "2026-06-29"
 summary: "Revisão do AI Act empurra as regras de alto risco para dezembro de 2027 e agosto de 2028. Duas mudanças passam a valer em 2 de dezembro de 2026."
 category: "Regulação & Ética"
 tags:
@@ -14,13 +14,15 @@ coverAlt: "Arte com o título sobre o AI Omnibus da União Europeia, em fundo es
 sources:
   - name: "Addleshaw Goddard — EU AI Act: AI Omnibus formally adopted"
     url: "https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/technology/eu-ai-act-ai-omnibus-formally-adopted/"
+  - name: "Conselho da União Europeia — Council gives final green light to simplify and streamline AI rules"
+    url: "https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify-and-streamline-rules/"
   - name: "Comissão Europeia — AI Omnibus enters into force"
     url: "https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force"
 author: "Redação Inrev"
 draft: false
 ---
 
-O Parlamento Europeu e o Conselho da União Europeia adotaram o AI Omnibus, uma revisão do AI Act, a lei europeia de inteligência artificial. A Comissão Europeia propôs o pacote em novembro de 2025. Os dois órgãos aprovaram o texto em junho de 2026, e ele está em vigor desde 27 de julho de 2026, segundo a Comissão.
+O Parlamento Europeu e o Conselho da União Europeia adotaram o AI Omnibus, uma revisão do AI Act, a lei europeia de inteligência artificial. A Comissão Europeia propôs o pacote em 19 de novembro de 2025. O Parlamento aprovou o acordo em 16 de junho de 2026 e o Conselho deu o aval final em 29 de junho de 2026. O ato está em vigor desde 27 de julho de 2026, segundo a Comissão.
 
 ## Os novos prazos
 
