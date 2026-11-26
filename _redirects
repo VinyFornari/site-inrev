@@ -1,0 +1,18 @@
+# Arquivos do repositório que não fazem parte do site.
+# A saída da Pages é a raiz, então estes caminhos responderiam 200 sem isto.
+/package.json /404.html 404
+/package-lock.json /404.html 404
+/README.md /404.html 404
+/.gitignore /404.html 404
+/.node-version /404.html 404
+/.DS_Store /404.html 404
+/.thumbnail /404.html 404
+/_redirects /404.html 404
+/app.jsx /404.html 404
+/sections.jsx /404.html 404
+/contact-footer.jsx /404.html 404
+/globe.jsx /404.html 404
+/space-field.jsx /404.html 404
+/assets/logo-base64.txt /404.html 404
+/scripts/* /404.html 404
+/content/* /404.html 404

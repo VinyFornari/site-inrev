@@ -187,9 +187,9 @@ function optionalUrl(value, file, field) {
   return url;
 }
 
-function assertImage(urlPath, file) {
-  if (!urlPath.startsWith('/blog/img/') || !urlPath.endsWith('.webp')) {
-    fail(`${file}: imagem deve estar em /blog/img/*.webp (${urlPath})`);
+function assertImage(urlPath, file, extensions = ['.webp']) {
+  if (!urlPath.startsWith('/blog/img/') || !extensions.some((ext) => urlPath.endsWith(ext))) {
+    fail(`${file}: imagem deve estar em /blog/img/ (${extensions.join(', ')}): ${urlPath}`);
   }
   const abs = inside(urlPath.slice(1));
   if (!fs.existsSync(abs)) fail(`${file}: imagem ausente ${urlPath}`);
@@ -228,9 +228,9 @@ function loadPosts() {
     const cover = String(data.cover || '').trim();
     const coverAlt = String(data.coverAlt || '').trim();
     if (!coverAlt) fail(`${name}: coverAlt obrigatório`);
-    assertImage(cover, name);
-    const og = cover.replace(/\.webp$/, '-og.webp');
-    assertImage(og, name);
+    assertImage(cover, name, ['.webp']);
+    const og = cover.replace(/\.webp$/, '-og.jpg');
+    assertImage(og, name, ['.jpg', '.jpeg']);
     const { before, callout, after } = splitCallout(parsed.content || '');
     if (!callout) fail(`${name}: inclua a seção "## O que isso muda para a sua empresa"`);
     const full = [before, callout, after].filter(Boolean).join('\n\n');
@@ -371,8 +371,16 @@ function layout({
   ogType = 'website', image = '', imageAlt = '', imageWidth = '', imageHeight = '',
   published = '', modified = '', extraHead = '', jsonLd = null, body,
 }) {
+  const imageType = /\.jpe?g$/i.test(image)
+    ? 'image/jpeg'
+    : /\.png$/i.test(image)
+      ? 'image/png'
+      : /\.webp$/i.test(image)
+        ? 'image/webp'
+        : '';
   const imageTags = image ? `
   <meta property="og:image" content="${esc(image)}">
+  ${imageType ? `<meta property="og:image:type" content="${imageType}">` : ''}
   ${imageWidth ? `<meta property="og:image:width" content="${esc(imageWidth)}">` : ''}
   ${imageHeight ? `<meta property="og:image:height" content="${esc(imageHeight)}">` : ''}
   <meta property="og:image:alt" content="${esc(imageAlt || title)}">

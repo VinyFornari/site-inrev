@@ -10,7 +10,7 @@ A Cloudflare Pages deve usar:
 - Diretório de saída: raiz do repositório (`/`)
 - Branch de produção: `main`
 
-`marked` e `gray-matter` estão em `dependencies` porque a Pages define `NODE_ENV=production`, e nesse modo o `npm ci` não instala `devDependencies`. O Node é 20 ou mais (`.node-version`).
+`marked` e `gray-matter` estão em `dependencies` porque a Pages define `NODE_ENV=production`, e nesse modo o `npm ci` não instala `devDependencies`. O Node é 22 (`.node-version`).
 
 O build é idempotente. Ele regrava só a saída gerada e não altera `index.html` nem `blog/img/`. Nada gerado entra no Git (veja `.gitignore`).
 
@@ -27,9 +27,9 @@ O build é idempotente. Ele regrava só a saída gerada e não altera `index.htm
    - `instagramUrl` e `linkedinUrl` se o tema também saiu nas redes
    - `draft: true` deixa o texto de fora do build
 3. No corpo, escreva o texto original e uma seção `## O que isso muda para a sua empresa`. Ela vira o box da página. Cite a fonte e use só trechos curtos.
-4. Coloque as imagens em `blog/img/`, em WebP, cada uma com menos de 250 KB:
-   - capa 1600×900: `blog/img/<slug>.webp`
-   - Open Graph 1200×630: `blog/img/<slug>-og.webp`
+4. Coloque as imagens em `blog/img/`, cada uma com menos de 250 KB:
+   - capa 1600×900 em WebP, usada na página: `blog/img/<slug>.webp`
+   - Open Graph 1200×630 em JPEG, para `og:image` e Twitter: `blog/img/<slug>-og.jpg`
    - Foto de terceiros só com licença e crédito.
 5. Abra um pull request para `main`. A Cloudflare Pages publica um preview (em geral `https://<branch>.site-inrev.pages.dev`; a barra da branch vira hífen). Confira `/blog/`, o artigo e a categoria.
 6. No merge, o deploy de produção leva cerca de um minuto. Não faça commit do HTML gerado.
