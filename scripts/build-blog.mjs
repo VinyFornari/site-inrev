@@ -232,7 +232,6 @@ function loadPosts() {
     const og = cover.replace(/\.webp$/, '-og.jpg');
     assertImage(og, name, ['.jpg', '.jpeg']);
     const { before, callout, after } = splitCallout(parsed.content || '');
-    if (!callout) fail(`${name}: inclua a seção "## O que isso muda para a sua empresa"`);
     const full = [before, callout, after].filter(Boolean).join('\n\n');
     posts.push({
       file: name,
@@ -564,10 +563,10 @@ function renderArticle(post, posts) {
       ${credit(post)}
     </figure>
     <div class="prose">${renderMarkdown(post.before)}</div>
-    <aside class="callout">
+    ${post.callout ? `<aside class="callout">
       <h2>O que isso muda para a sua empresa</h2>
       <div class="prose">${renderMarkdown(post.callout)}</div>
-    </aside>
+    </aside>` : ''}
     ${post.after ? `<div class="prose">${renderMarkdown(post.after)}</div>` : ''}
     ${sources}
     <section class="share">

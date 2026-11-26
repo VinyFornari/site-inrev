@@ -40,7 +40,7 @@ O `_redirects` da Pages não redireciona por host (a documentação lista "Domai
    - `author` (se omitir, fica "Redação Inrev")
    - `instagramUrl` e `linkedinUrl` se o tema também saiu nas redes
    - `draft: true` deixa o texto de fora do build
-3. No corpo, escreva o texto original e uma seção `## O que isso muda para a sua empresa`. Ela vira o box da página. Cite a fonte e use só trechos curtos.
+3. No corpo, escreva o texto original da notícia. Cite a fonte e use só trechos curtos. A seção `## O que isso muda para a sua empresa` é opcional e só entra quando fizer sentido para aquela notícia (combine antes com o Vinicius). Quando existe, ela vira o box da página.
 4. Coloque as imagens em `blog/img/`, cada uma com menos de 250 KB:
    - capa 1600×900 em WebP, usada na página: `blog/img/<slug>.webp`
    - Open Graph 1200×630 em JPEG, para `og:image` e Twitter: `blog/img/<slug>-og.jpg`
