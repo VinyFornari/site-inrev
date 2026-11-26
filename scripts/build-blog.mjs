@@ -791,7 +791,9 @@ function stripRepoFilesFromPagesOutput() {
     return;
   }
   for (const rel of PAGES_PRIVATE_FILES) fs.rmSync(inside(rel), { force: true });
-  for (const rel of ['scripts', 'content']) fs.rmSync(inside(rel), { recursive: true, force: true });
+  for (const rel of ['scripts', 'content', 'src', 'node_modules']) {
+    fs.rmSync(inside(rel), { recursive: true, force: true });
+  }
   console.log('arquivos do repositório removidos da saída da Pages');
 }
 

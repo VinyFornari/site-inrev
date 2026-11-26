@@ -1,6 +1,6 @@
 # Inrev — site-inrev
 
-Site da Inrev Control & Management. A home é o `index.html` já publicado (pacote com React compilado no navegador). O blog, o sitemap, o RSS, o `robots.txt`, a página 404 e as políticas de privacidade e cookies são HTML estático gerado na hora do deploy.
+Site da Inrev Control & Management. A home, o blog, o sitemap, o RSS, o `robots.txt`, a página 404 e as políticas de privacidade e cookies são gerados na hora do deploy. O código da home fica em `src/` (JSX, CSS e fontes). Nada disso entra no ar: o build publica só o HTML e os assets.
 
 ## Build
 
@@ -10,11 +10,23 @@ A Cloudflare Pages deve usar:
 - Diretório de saída: raiz do repositório (`/`)
 - Branch de produção: `main`
 
-`marked` e `gray-matter` estão em `dependencies` porque a Pages define `NODE_ENV=production`, e nesse modo o `npm ci` não instala `devDependencies`. O Node é 22 (`.node-version`).
+`npm run build` gera a home (`scripts/build-home.mjs`) e depois o blog (`scripts/build-blog.mjs`).
 
-O build é idempotente. Ele regrava só a saída gerada e não altera `index.html` nem `blog/img/`. Nada gerado entra no Git (veja `.gitignore`).
+`esbuild`, `react`, `react-dom`, `marked` e `gray-matter` estão em `dependencies` porque a Pages define `NODE_ENV=production`, e nesse modo o `npm ci` não instala `devDependencies`. O React publicado é o UMD de produção 18.3.1, o mesmo da home anterior. O Node é 22 (`.node-version`).
 
-Na Cloudflare Pages (`CF_PAGES=1`), o mesmo build apaga da saída os arquivos que não são o site (`package.json`, `README.md`, `scripts/`, `content/`, os `.jsx` e afins). A Pages não aceita um `_redirects` com status 404, e um arquivo presente na raiz seria público. Sem o arquivo, o endereço responde 404.
+O build é idempotente. Ele regrava a saída gerada e não altera `blog/img/`. Nada gerado entra no Git (veja `.gitignore`).
+
+Na Cloudflare Pages (`CF_PAGES=1`), o mesmo build apaga da saída os arquivos que não são o site (`package.json`, `README.md`, `scripts/`, `content/`, `src/`, `node_modules` e afins). A Pages não aceita um `_redirects` com status 404, e um arquivo presente na raiz seria público. Sem o arquivo, o endereço responde 404. O `index.html`, o `app.[hash].js`, o React e as fontes com hash permanecem.
+
+## Redirect do apex
+
+O `_redirects` da Pages não redireciona por host (a documentação lista "Domain-level redirects" como sem suporte). O apex continua no ar até esta regra existir no domínio `inrev.com.br`, em **Rules → Redirect Rules → Create rule**:
+
+- Nome: `Apex para www`
+- Se: Custom filter expression `http.host eq "inrev.com.br"`
+- Então: Dynamic redirect, expressão `concat("https://www.inrev.com.br", http.request.uri.path)`, código **301**, **Preserve query string** ligado
+
+`http://inrev.com.br/caminho?x=1` já sobe para `https://` pelo Always Use HTTPS e, com a regra, segue para `https://www.inrev.com.br/caminho?x=1`. A expressão não casa com `www`, então não há loop.
 
 ## Como publicar uma notícia
 

@@ -2,8 +2,13 @@ node_modules/
 .DS_Store
 **/.DS_Store
 
-# Saída do gerador (scripts/build-blog.mjs). Não versionar:
-# o build da Cloudflare Pages grava estes arquivos na raiz.
+# Saída dos geradores (scripts/build-home.mjs e scripts/build-blog.mjs).
+# Não versionar: o build da Cloudflare Pages grava estes arquivos na raiz.
+/index.html
+/assets/app.*.js
+/assets/react.*.js
+/assets/react-dom.*.js
+/assets/fonts/
 /blog/*
 !/blog/img/
 /sitemap.xml
