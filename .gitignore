@@ -1,0 +1,11 @@
+node_modules/
+
+# Saída do gerador (scripts/build-blog.mjs). Não versionar:
+# o build da Cloudflare Pages grava estes arquivos na raiz.
+/blog/*
+!/blog/img/
+/sitemap.xml
+/robots.txt
+/404.html
+/politica-de-privacidade/
+/politica-de-cookies/
