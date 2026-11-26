@@ -14,6 +14,8 @@ A Cloudflare Pages deve usar:
 
 O build é idempotente. Ele regrava só a saída gerada e não altera `index.html` nem `blog/img/`. Nada gerado entra no Git (veja `.gitignore`).
 
+Na Cloudflare Pages (`CF_PAGES=1`), o mesmo build apaga da saída os arquivos que não são o site (`package.json`, `README.md`, `scripts/`, `content/`, os `.jsx` e afins). A Pages não aceita um `_redirects` com status 404, e um arquivo presente na raiz seria público. Sem o arquivo, o endereço responde 404.
+
 ## Como publicar uma notícia
 
 1. Crie `content/blog/AAAA-MM-DD-slug.md`. O nome do arquivo tem de ser a data e o `slug` do front-matter.

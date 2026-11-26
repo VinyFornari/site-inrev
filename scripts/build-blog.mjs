@@ -766,6 +766,35 @@ ${items}
 `;
 }
 
+const PAGES_PRIVATE_FILES = [
+  'package.json',
+  'package-lock.json',
+  'README.md',
+  '.gitignore',
+  '.node-version',
+  '.DS_Store',
+  '.thumbnail',
+  'app.jsx',
+  'sections.jsx',
+  'contact-footer.jsx',
+  'globe.jsx',
+  'space-field.jsx',
+  'assets/logo-base64.txt',
+];
+
+function stripRepoFilesFromPagesOutput() {
+  // A Pages não aplica status 404 em _redirects (só 301/302/307/308 e proxy 200).
+  // Com a saída na raiz, apagar estes arquivos no build da Pages faz o caminho
+  // cair na 404.html. O build local não apaga o repositório.
+  if (process.env.CF_PAGES !== '1') {
+    console.log('arquivos do repositório mantidos (build fora da Cloudflare Pages)');
+    return;
+  }
+  for (const rel of PAGES_PRIVATE_FILES) fs.rmSync(inside(rel), { force: true });
+  for (const rel of ['scripts', 'content']) fs.rmSync(inside(rel), { recursive: true, force: true });
+  console.log('arquivos do repositório removidos da saída da Pages');
+}
+
 function main() {
   const homePath = inside('index.html');
   const homeBefore = fs.readFileSync(homePath);
@@ -844,6 +873,7 @@ function main() {
 
   const homeAfter = fs.readFileSync(homePath);
   if (!homeBefore.equals(homeAfter)) fail('o build alterou index.html');
+  stripRepoFilesFromPagesOutput();
   for (const post of posts) {
     console.log(`${post.date} ${post.slug} · ${post.wordCount} palavras · ${post.minutes} min`);
   }
