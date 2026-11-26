@@ -1,3 +1,22 @@
+/* Fallbacks métricos: o texto do hero usa a fonte local na hora, e o
+   webfont entra com size-adjust para não empurrar o título. */
+@font-face {
+  font-family: 'Inrev Heading Fallback';
+  src: local('Arial'), local('Helvetica'), local('Helvetica Neue');
+  size-adjust: 131.23%;
+  ascent-override: 79.1%;
+  descent-override: 16.92%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Inrev Body Fallback';
+  src: local('Arial'), local('Helvetica'), local('Helvetica Neue');
+  size-adjust: 124.05%;
+  ascent-override: 80%;
+  descent-override: 24.99%;
+  line-gap-override: 0%;
+}
+
 :root {
       --bg-primary: #0A0A0A;
       --bg-secondary: #111111;
@@ -11,8 +30,8 @@
       --text-dark: #0F1926;
       --text-muted: #6B7280;
       --text-muted-light: #9CA3AF;
-      --font-heading: 'Plus Jakarta Sans', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
+      --font-heading: 'Plus Jakarta Sans', 'Inrev Heading Fallback', sans-serif;
+      --font-body: 'DM Sans', 'Inrev Body Fallback', sans-serif;
       --max-width: 1200px;
       --header-h: 72px;
     }
@@ -43,8 +62,8 @@
 
     /* ===== Hero Entrance ===== */
     @keyframes heroFadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { transform: translateY(20px); }
+      to { transform: translateY(0); }
     }
     .hero-anim {
       animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -242,6 +261,15 @@
     @keyframes mobileRing {
       0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
       50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+    }
+    /* iPhone: o fade com opacity 0 e animation-delay segurava o título
+       invisível até o load (fontes + scripts). No celular o hero já entra visível. */
+    @media (max-width: 899px) {
+      .hero-anim {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
     @media (max-width: 900px) {
       .hero-content-grid {

@@ -143,6 +143,10 @@ function buildHtml({ appName, reactName, reactDomName, fontUrls, preloads, marku
   const homeCss = readSrc('home.css').toString('utf8');
   if (!homeCss.includes('heroFadeUp 0.45s')) fail('o fade do hero não está em 0,45s');
   if (!homeCss.includes('prefers-reduced-motion')) fail('falta prefers-reduced-motion');
+  if (!homeCss.includes('max-width: 899px') || !homeCss.includes('opacity: 1 !important')) {
+    fail('o hero no celular ainda pode começar com opacity 0');
+  }
+  if (homeCss.includes('from { opacity: 0')) fail('o keyframe do hero ainda esconde o texto');
   if (homeCss.includes('heroFadeUp 1s')) fail('o fade de 1s ainda está no CSS');
 
   const meta = readSrc('meta.html').toString('utf8').trimEnd();
